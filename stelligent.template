@@ -1,5 +1,5 @@
 {
-  "AWSTemplateFormatVersion" : "2015-01-16",
+  "AWSTemplateFormatVersion" : "2010-09-09",
   
   "Description" : "Cloudformation example for Stelligent",
   
