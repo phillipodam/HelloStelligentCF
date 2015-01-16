@@ -99,28 +99,12 @@
           "Install" : {
             "packages" : {
               "yum" : {
+                "git"          : [],
                 "httpd"        : []
               }
             },
 
             "files" : {
-              "/var/www/html/index.html" : {
-                "content" : { "Fn::Join" : [ "", [
-                  "<html>\n",
-                  "  <head>\n",
-                  "    <title>Stelligent Example</title>\n",
-                  "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n",
-                  "  </head>\n",
-                  "  <body>\n",
-                  "    <h1>Hello Stelligent, well I suppose it could be argued this is quite easy :-)</h1>\n",
-                  "  </body>\n",
-                  "</html>\n"
-                ]]},
-                "mode"  : "000600",
-                "owner" : "apache",
-                "group" : "apache"
-              },
-
               "/etc/cfn/cfn-hup.conf" : {
                 "content" : { "Fn::Join" : ["", [
                   "[main]\n",
@@ -183,7 +167,12 @@
              "/opt/aws/bin/cfn-signal -e $? ",
              "         --stack ", { "Ref" : "AWS::StackName" },
              "         --resource WebServerInstance ",
-             "         --region ", { "Ref" : "AWS::Region" }, "\n"
+             "         --region ", { "Ref" : "AWS::Region" }, "\n",
+             
+             "git clone https://github.com/phillipodam/HelloStelligentCF.git\n",
+             "cp HelloStelligentCF/site/index.html /var/www/html/.\n",
+             "chown apache:apache /var/www/html/index.html\n",
+             "chmod 400 /var/www/html/index.html\n"
         ]]}}        
       },
       "CreationPolicy" : {
